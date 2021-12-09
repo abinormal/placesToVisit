@@ -20,7 +20,7 @@ public class HomeControllerTests {
     public void testGetHome() throws Exception {
         String expectedContent = "Welcome to the Events API!";
         this.mockMvcController.perform(
-                 MockMvcRequestBuilders.get("/"))
+                MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedContent));
     }
@@ -29,7 +29,7 @@ public class HomeControllerTests {
     public void testGetEvents() throws Exception {
         String expectedContent = "Look at all these events!!";
         this.mockMvcController.perform(
-                        MockMvcRequestBuilders.get("/events"))
+                MockMvcRequestBuilders.get("/events"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedContent));
     }
