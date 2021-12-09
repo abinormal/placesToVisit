@@ -9,4 +9,9 @@ public class HomeController {
     public String home(){
         return "Welcome to the Events API!";
     }
+
+    @GetMapping(value = "/events")
+    public String events(){
+        return "Look at all these events!!";
+    }
 }
