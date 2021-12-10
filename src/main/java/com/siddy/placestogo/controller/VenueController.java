@@ -25,4 +25,9 @@ public class VenueController {
         return new ResponseEntity<>(venues, HttpStatus.OK);
     }
 
+    @GetMapping({"/{venueId}"})
+    public ResponseEntity<Venue> getBookById(@PathVariable Long venueId) {
+        return new ResponseEntity<>(venueService.getVenueById(venueId), HttpStatus.OK);
+    }
+
 }

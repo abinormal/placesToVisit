@@ -7,4 +7,5 @@ import java.util.List;
 public interface VenueService {
 
     List<Venue> getAllVenues();
+    Venue getVenueById(Long id);
 }

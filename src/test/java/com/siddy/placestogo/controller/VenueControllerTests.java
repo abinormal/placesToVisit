@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class VenueControllerTests {
 
     @Mock
-    private VenueServiceImpl mockBookManagerServiceImpl;
+    private VenueServiceImpl mockVenueServiceImpl;
 
     @InjectMocks
     private VenueController venueController;
@@ -44,7 +44,7 @@ public class VenueControllerTests {
     }
 
     @Test
-    public void testGetEvents() throws Exception {
+    public void testGetVenues() throws Exception {
         List<Venue> venues = new ArrayList<>();
         venues.add(new Venue(1L, "Venue One", "This is the description for Venue One",
                 "W4 V1", "www.VenueOne.com", EventType.Museum, EventCost.£));
@@ -53,7 +53,7 @@ public class VenueControllerTests {
         venues.add(new Venue(3L, "Venue Three", "This is the description for Venue Three",
                 "W4 V3", "www.VenueThree.com", EventType.Restaurant, EventCost.£££));
 
-        when(mockBookManagerServiceImpl.getAllVenues()).thenReturn(venues);
+        when(mockVenueServiceImpl.getAllVenues()).thenReturn(venues);
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.get("/venue"))
@@ -64,6 +64,18 @@ public class VenueControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Venue Two"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].id").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].name").value("Venue Three"));
+    }
+
+    @Test
+    public void testGetVenueById() throws Exception {
+         Venue venue = new Venue(4L, "Venue Four", "This is the description for Venue One",
+                "W4 V1", "www.VenueOne.com", EventType.Museum, EventCost.£);
+         when(mockVenueServiceImpl.getVenueById(venue.getId())).thenReturn(venue);
+                this.mockMvcController.perform(
+                MockMvcRequestBuilders.get("/venue/" + venue.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(4))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Venue Four"));
     }
 }
 

@@ -22,4 +22,9 @@ public class VenueServiceImpl implements VenueService {
         venueRepository.findAll().forEach(venues::add);
         return venues;
     }
+
+    @Override
+    public Venue getVenueById(Long id) {
+        return venueRepository.findById(id).get();
+    }
 }
