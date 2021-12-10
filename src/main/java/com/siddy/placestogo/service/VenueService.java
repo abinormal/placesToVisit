@@ -8,4 +8,5 @@ public interface VenueService {
 
     List<Venue> getAllVenues();
     Venue getVenueById(Long id);
+    Venue insertVenue(Venue venue);
 }

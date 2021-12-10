@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -20,7 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -76,6 +77,20 @@ public class VenueControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(4))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Venue Four"));
+    }
+
+    @Test
+    public void testPostVenue() throws Exception {
+        List<Venue> venue = new ArrayList<>();
+        venue.add(new Venue(1L, "Venue One", "This is the description for Venue One",
+                "W4 V1", "www.VenueOne.com", EventType.Museum, EventCost.£));
+
+        this.mockMvcController.perform(
+                MockMvcRequestBuilders.post("/venue/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(venue)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+        // verify(mockVenueServiceImpl, times(1)).insertVenue(venue);
     }
 }
 

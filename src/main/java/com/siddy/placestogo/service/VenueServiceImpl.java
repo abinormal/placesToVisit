@@ -27,4 +27,10 @@ public class VenueServiceImpl implements VenueService {
     public Venue getVenueById(Long id) {
         return venueRepository.findById(id).get();
     }
+
+    @Override
+    public Venue insertVenue(Venue venue) {
+        return venueRepository.save(venue);
+    }
+
 }
